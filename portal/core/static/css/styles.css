@@ -3,7 +3,7 @@ body {
 }
 
 .bg-custom {
-  background-color: #5b67ea;
+  background-color: #3b45b5;
 }
 .title-custom {
   margin-top: 80px;
@@ -34,10 +34,10 @@ body {
 .button {
   height: 42px;
   border-radius: 5px;
-  border: 2px solid #5b67ea;
+  border: 2px solid #3b45b5;
   background: none;
   margin-top: 10px;
-  color: #5b67ea;
+  color: #3b45b5;
   font-weight: bold;
   font-size: 16px;
   text-decoration: none !important;
@@ -47,6 +47,6 @@ body {
   transition: all 0.2s;
 }
 .button:hover {
-  background: #5b67ea;
+  background: #3b45b5;
   color: #fff;
 }
