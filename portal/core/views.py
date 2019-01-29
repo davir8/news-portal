@@ -12,16 +12,20 @@ def index(request):
     notices = Notice.objects.all()
     template_name = 'home.html'
     msg = ''
+    # Verificando se o form foi submetido
     if request.method == 'GET':
         form = SearchNotice(request.GET)
         if form.is_valid():
             notices = Notice.objects.search(form.cleaned_data['title'])
+            # Verificando se achou alguma notifica
             if len(notices) == 0:
                 msg = "Nenhuma notícia encontrada."
+            # Limpando o form
             form = SearchNotice()
     else:
+        # Limpando o form
         form = SearchNotice()
-
+    # Passando as variáveis para o contexto
     context = {
         'notices': notices,
         'form': form,
@@ -48,5 +52,5 @@ def store(request):
         p2 = child.find('h2').text
         # Criando um objeto noticia com titulo concatenado
         Notice.objects.get_or_create(title=p1+' '+p2)
-    
+    # Redirecionando para a pagina index
     return redirect(reverse('core:index'))
