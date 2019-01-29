@@ -1,11 +1,21 @@
 from django.shortcuts import render
 from .models import Notice
+from .forms import SearchNotice
+# Imports redirect
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
+# Imports webscraping
 from bs4 import BeautifulSoup
 import requests
 
-# Retorna a pagina inicial
-def home(request):
-    return render(request, 'home.html')
+def index(request):
+    notices = Notice.objects.all()
+    template_name = 'home.html'
+    context = {
+        'notices': notices,
+        'form': SearchNotice()
+    }
+    return render(request, template_name, context)
 
 # Buscar as noticias do tecmundo e salvar no banco de dados
 def store(request):
@@ -25,11 +35,12 @@ def store(request):
         # Extraindo segunda parte
         p2 = child.find('h2').text
         # Criando um objeto noticia com titulo concatenado
-        Notice.objects.create(title=p1+' '+p2)
+        Notice.objects.get_or_create(title=p1+' '+p2)
+    
+    return redirect(reverse('core:index'))
 
-
-def index(request):
-    notices = Notice.objects.all()
+def busca(request):
+    notices = Notice.objects.search(request)
     template_name = 'home.html'
     context = {
         'notices': notices
