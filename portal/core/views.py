@@ -11,9 +11,21 @@ import requests
 def index(request):
     notices = Notice.objects.all()
     template_name = 'home.html'
+    msg = ''
+    if request.method == 'GET':
+        form = SearchNotice(request.GET)
+        if form.is_valid():
+            notices = Notice.objects.search(form.cleaned_data['title'])
+            if len(notices) == 0:
+                msg = "Nenhuma notícia encontrada."
+            form = SearchNotice()
+    else:
+        form = SearchNotice()
+
     context = {
         'notices': notices,
-        'form': SearchNotice()
+        'form': form,
+        'msg': msg
     }
     return render(request, template_name, context)
 
@@ -38,11 +50,3 @@ def store(request):
         Notice.objects.get_or_create(title=p1+' '+p2)
     
     return redirect(reverse('core:index'))
-
-def busca(request):
-    notices = Notice.objects.search(request)
-    template_name = 'home.html'
-    context = {
-        'notices': notices
-    }
-    return render(request, template_name, context)

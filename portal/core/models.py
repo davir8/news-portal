@@ -3,7 +3,7 @@ from django.db import models
 class NoticeManager(models.Manager):
 
     def search(self, query):
-        return self.get_queryset().filter(name_icontains=query)
+        return self.get_queryset().filter(title__icontains=query)
 
 
 class Notice(models.Model):

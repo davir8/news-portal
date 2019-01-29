@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .box {
   background-color: #fff;
@@ -25,6 +25,7 @@ body {
   width: 350px;
   height: auto;
   margin-bottom: 20px;
+  margin-right: 20px;
   border-radius: 3px;
   border: #ccc 1px solid;
   display: flex;
@@ -49,4 +50,16 @@ body {
 .button:hover {
   background: #3b45b5;
   color: #fff;
+}
+.info-msg {
+  background: #fff;
+  padding: 10px 15px 0px 15px;
+}
+.font-msg {
+  font-size: 24px;
+}
+.form-inline #id_title {
+  margin-right: 5px;
+  height: 37px;
+  border-radius: 3px;
 }
